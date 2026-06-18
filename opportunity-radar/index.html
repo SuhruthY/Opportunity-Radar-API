@@ -368,7 +368,7 @@
         
         // Update statistics
         async function updateStats() {
-            const opportunities = await fetchJSON('/api/opportunities.json');
+            const opportunities = await fetchJSON('api/opportunities.json');
             if (opportunities) {
                 document.getElementById('total-opps').textContent = opportunities.length;
                 
@@ -385,7 +385,7 @@
         
         // Update last update time
         async function updateLastUpdate() {
-            const opportunities = await fetchJSON('/api/opportunities.json');
+            const opportunities = await fetchJSON('api/opportunities.json');
             if (opportunities && opportunities.length > 0) {
                 const latest = opportunities[0];
                 document.getElementById('last-update').textContent = latest.date_discovered;
@@ -488,9 +488,9 @@
             try {
                 // Fetch all data
                 const [opportunities, trending, deadlines] = await Promise.all([
-                    fetchJSON('/api/opportunities.json'),
-                    fetchJSON('/api/trending.json'),
-                    fetchJSON('/api/deadlines.json')
+                    fetchJSON('api/opportunities.json'),
+                    fetchJSON('api/trending.json'),
+                    fetchJSON('api/deadlines.json')
                 ]);
                 
                 // Update stats

@@ -7,6 +7,16 @@ on:
     branches: [main]
   schedule:
     - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 env:
   PYTHON_VERSION: '3.11'
@@ -29,10 +39,13 @@ jobs:
         cd opportunity-radar
         python -m pytest opportunity_radar/tests/ -v
 
-  crawl-and-deploy:
-    if: github.event_name == 'schedule' || github.event_name == 'push'
+  build-and-deploy:
+    if: github.event_name != 'pull_request'
     needs: test
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
     - uses: actions/checkout@v4
       with:
@@ -49,18 +62,27 @@ jobs:
       run: |
         cd opportunity-radar
         python -m opportunity_radar.__main__
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Commit updates
+    - name: Prepare GitHub Pages output
+      run: |
+        mkdir -p _site/api
+        cp opportunity-radar/index.html _site/
+        cp opportunity-radar/data/api/*.json _site/api/
+        echo "Pages content:"
+        ls -la _site/
+        ls -la _site/api/
+    - name: Configure GitHub Pages
+      uses: actions/configure-pages@v4
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: _site
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+    - name: Commit generated data to main branch
       run: |
         git config --local user.email "actions@github.com"
         git config --local user.name "GitHub Actions"
         git add opportunity-radar/data/
         git diff --staged --quiet || git commit -m "Auto-update opportunities [$(date -u +'%Y-%m-%d %H:%M:%S UTC')]"
         git push
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: opportunity-radar/data/api
-        force: true
