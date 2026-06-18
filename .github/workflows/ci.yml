@@ -2,9 +2,9 @@ name: Opportunity Radar CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
   schedule:
     - cron: "*/15 * * * *"
   workflow_dispatch:
