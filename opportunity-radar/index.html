@@ -1,519 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opportunity Radar API - Google News for Opportunities</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .subtitle {
-            font-size: 1.2em;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-value {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-        
-        .last-update {
-            text-align: center;
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 20px;
-        }
-        
-        .sections {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-        
-        @media (max-width: 968px) {
-            .sections {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #333;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-        
-        .opportunity-list {
-            list-style: none;
-        }
-        
-        .opportunity-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            border-left: 4px solid #667eea;
-        }
-        
-        .opportunity-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .opportunity-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        
-        .opportunity-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .opportunity-org {
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        .opportunity-deadline {
-            color: #dc3545;
-            font-weight: 600;
-        }
-        
-        .opportunity-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-top: 10px;
-        }
-        
-        .tag {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.8em;
-        }
-        
-        .opportunity-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .opportunity-link:hover {
-            text-decoration: underline;
-        }
-        
-        .trending-section {
-            margin-top: 30px;
-        }
-        
-        .deadline-section {
-            margin-top: 30px;
-        }
-        
-        .deadline-item {
-            background: #fff3cd;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #ffc107;
-        }
-        
-        .deadline-countdown {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #dc3545;
-        }
-        
-        .api-endpoints {
-            list-style: none;
-        }
-        
-        .api-endpoint {
-            background: #e8f4fd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 4px solid #17a2b8;
-        }
-        
-        .endpoint-url {
-            font-family: 'Courier New', monospace;
-            color: #495057;
-            margin: 10px 0;
-        }
-        
-        .endpoint-description {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        footer {
-            text-align: center;
-            color: white;
-            padding: 30px;
-            margin-top: 30px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 20px;
-        }
-        
-        .refresh-info {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            color: #155724;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opportunity Radar - Discover Your Next Opportunity</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{--bg:#0a0a1a;--surface:rgba(255,255,255,0.05);--surface-hover:rgba(255,255,255,0.1);--text:#fff;--text-secondary:rgba(255,255,255,0.7);--text-muted:rgba(255,255,255,0.4);--accent:#6c5ce7;--accent2:#00cec9;--accent3:#fd79a8;--danger:#e17055;--warning:#fdcb6e;--radius:16px;--shadow:0 8px 32px rgba(0,0,0,0.3);--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
+
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
+
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+.bg-gradient{position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:-1;background:radial-gradient(circle at 30% 40%,rgba(108,92,231,0.15) 0%,transparent 50%),radial-gradient(circle at 70% 60%,rgba(0,206,201,0.1) 0%,transparent 50%),radial-gradient(circle at 50% 80%,rgba(253,121,168,0.08) 0%,transparent 50%);animation:bgShift 20s ease-in-out infinite alternate}
+
+@keyframes bgShift{0%{transform:translate(0,0)}100%{transform:translate(-5%,-5%)}}
+
+.container{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:20px}
+
+/* navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;margin-bottom:32px;background:var(--surface);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.08);box-shadow:var(--shadow);animation:slideDown 0.6s ease-out}
+@keyframes slideDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(108,92,231,0.4)}50%{box-shadow:0 0 0 12px rgba(108,92,231,0)}}
+.brand-text{font-size:18px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:8px}
+.nav-btn{background:var(--surface);border:1px solid rgba(255,255,255,0.1);color:var(--text-secondary);padding:8px 16px;border-radius:10px;cursor:pointer;font-size:13px;transition:var(--transition);text-decoration:none}
+.nav-btn:hover{background:var(--surface-hover);color:var(--text);transform:translateY(-1px)}
+.nav-btn.primary{background:linear-gradient(135deg,var(--accent),#a29bfe);color:#fff;border:none}
+.nav-btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(108,92,231,0.3)}
+
+/* hero */
+.hero{text-align:center;padding:60px 20px 40px;animation:fadeIn 0.8s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(108,92,231,0.15);color:var(--accent2);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:20px;border:1px solid rgba(0,206,201,0.2)}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;line-height:1.1;margin-bottom:16px;background:linear-gradient(135deg,#fff 30%,var(--accent) 60%,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(1rem,2vw,1.2rem);color:var(--text-secondary);max-width:600px;margin:0 auto 32px}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-btn{padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.hero-btn.primary{background:linear-gradient(135deg,var(--accent),#a29bfe);color:#fff;border:none}
+.hero-btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(108,92,231,0.35)}
+.hero-btn.secondary{background:var(--surface);color:var(--text);border:1px solid rgba(255,255,255,0.15)}
+.hero-btn.secondary:hover{background:var(--surface-hover);transform:translateY(-2px)}
+
+/* stats */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:40px 0;animation:slideUp 0.6s ease-out 0.2s both}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.stat-card{background:var(--surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:var(--radius);padding:24px;text-align:center;border:1px solid rgba(255,255,255,0.06);transition:var(--transition);position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:var(--transition)}
+.stat-card:hover::before{opacity:1}
+.stat-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,0.2);box-shadow:0 12px 40px rgba(108,92,231,0.1)}
+.stat-icon{font-size:28px;margin-bottom:8px}
+.stat-value{font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.stat-label{font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+/* last update */
+.update-bar{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;margin-bottom:32px;background:var(--surface);border-radius:12px;border:1px solid rgba(255,255,255,0.06);font-size:13px;color:var(--text-secondary);animation:slideUp 0.6s ease-out 0.3s both}
+.update-dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);animation:livePulse 2s infinite}
+@keyframes livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+
+/* sections grid */
+.sections{display:grid;grid-template-columns:1.6fr 1fr;gap:24px}
+@media(max-width:968px){.sections{grid-template-columns:1fr}}
+
+.section-card{background:var(--surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:var(--radius);padding:28px;border:1px solid rgba(255,255,255,0.06);transition:var(--transition);animation:slideUp 0.6s ease-out 0.4s both}
+.section-card:hover{border-color:rgba(255,255,255,0.1)}
+.section-card h2{font-size:18px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--text)}
+.section-card h2 .count{font-size:13px;color:var(--text-muted);font-weight:400;background:var(--surface);padding:2px 10px;border-radius:10px}
+
+/* skeleton loading */
+.skeleton{background:linear-gradient(90deg,var(--surface) 25%,rgba(255,255,255,0.08) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:10px;height:80px;margin-bottom:12px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* opportunity cards */
+.opp-card{background:var(--surface);border-radius:12px;padding:20px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.06);transition:var(--transition);position:relative;overflow:hidden;cursor:pointer;animation:cardIn 0.4s ease-out both}
+.opp-card:nth-child(1){animation-delay:0.05s}
+.opp-card:nth-child(2){animation-delay:0.1s}
+.opp-card:nth-child(3){animation-delay:0.15s}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.opp-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent),var(--accent2));opacity:0;transition:var(--transition)}
+.opp-card:hover::after{opacity:1}
+.opp-card:hover{transform:translateX(4px);border-color:rgba(108,92,231,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+.opp-card:active{transform:translateX(4px) scale(0.99)}
+
+.opp-type{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;padding:3px 10px;border-radius:6px;margin-bottom:8px}
+.opp-type.jobs{background:rgba(108,92,231,0.15);color:#a29bfe}
+.opp-type.hackathons{background:rgba(253,121,168,0.15);color:#fd79a8}
+.opp-type.grants{background:rgba(0,206,201,0.15);color:#00cec9}
+.opp-type.competitions{background:rgba(253,203,110,0.15);color:#fdcb6e}
+.opp-type.freelance{background:rgba(225,112,85,0.15);color:#e17055}
+.opp-type.scholarships{background:rgba(85,239,196,0.15);color:#55efc4}
+.opp-type.accelerators{background:rgba(9,132,227,0.15);color:#0984e3}
+
+.opp-title{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text);line-height:1.3}
+.opp-org{font-size:12px;color:var(--text-secondary);margin-bottom:8px}
+.opp-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--text-muted);margin-bottom:8px}
+.opp-meta span{display:flex;align-items:center;gap:4px}
+.opp-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.opp-tag{background:rgba(255,255,255,0.06);color:var(--text-secondary);padding:2px 10px;border-radius:6px;font-size:11px;transition:var(--transition)}
+.opp-tag:hover{background:rgba(108,92,231,0.2);color:var(--accent2)}
+.opp-score{position:absolute;top:16px;right:16px;font-size:13px;font-weight:700;color:var(--accent2)}
+.opp-deadline{color:var(--warning);font-weight:600}
+.opp-deadline.urgent{color:var(--danger);animation:deadlinePulse 1s infinite}
+@keyframes deadlinePulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.opp-link{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:12px;color:var(--accent);text-decoration:none;font-weight:600;transition:var(--transition)}
+.opp-link:hover{gap:8px;color:var(--accent2)}
+
+/* trending */
+.trend-card{background:var(--surface);border-radius:12px;padding:16px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.06);transition:var(--transition);display:flex;align-items:center;gap:12px;animation:cardIn 0.4s ease-out both}
+.trend-card:hover{transform:translateY(-2px);border-color:rgba(108,92,231,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+.trend-rank{font-size:20px;font-weight:800;color:var(--accent);min-width:32px;text-align:center;opacity:0.5}
+.trend-body{flex:1;min-width:0}
+.trend-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trend-org{font-size:11px;color:var(--text-muted)}
+.trend-score{font-size:14px;font-weight:700;color:var(--accent2)}
+
+/* deadline */
+.deadline-card{background:rgba(225,112,85,0.08);border-radius:12px;padding:16px;margin-bottom:10px;border:1px solid rgba(225,112,85,0.15);transition:var(--transition);animation:cardIn 0.4s ease-out both}
+.deadline-card:hover{transform:translateY(-2px);border-color:rgba(225,112,85,0.3);box-shadow:0 4px 20px rgba(225,112,85,0.1)}
+.deadline-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.deadline-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-secondary)}
+.deadline-count{color:var(--danger);font-weight:700;font-size:16px}
+.deadline-count.weeks{color:var(--warning)}
+.deadline-count.months{color:var(--accent2)}
+
+/* api endpoints */
+.api-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:16px}
+.api-card{background:var(--surface);border-radius:10px;padding:16px;border:1px solid rgba(255,255,255,0.06);transition:var(--transition)}
+.api-card:hover{transform:translateY(-2px);border-color:rgba(108,92,231,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+.api-method{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:rgba(0,206,201,0.15);color:var(--accent2);margin-bottom:6px;letter-spacing:0.5px}
+.api-endpoint{font-family:'SF Mono','Fira Code',monospace;font-size:13px;color:var(--accent2);margin-bottom:4px}
+.api-desc{font-size:12px;color:var(--text-muted)}
+
+/* footer */
+footer{margin-top:48px;padding:32px;text-align:center;border-top:1px solid rgba(255,255,255,0.06);color:var(--text-muted);font-size:13px;animation:slideUp 0.6s ease-out 0.5s both}
+footer a{color:var(--accent2);text-decoration:none;transition:var(--transition)}
+footer a:hover{color:var(--accent)}
+footer .footer-links{display:flex;justify-content:center;gap:24px;margin-bottom:12px;flex-wrap:wrap}
+footer .footer-links a{font-size:12px;color:var(--text-muted)}
+footer .footer-links a:hover{color:var(--text)}
+
+/* ripple effect */
+.ripple{position:relative;overflow:hidden}
+.ripple::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,0.2);width:100px;height:100px;margin-top:-50px;margin-left:-50px;top:50%;left:50%;transform:scale(0);opacity:0;pointer-events:none}
+.ripple:active::after{animation:rippleAnim 0.6s ease-out}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}
+
+/* error state */
+.error-state{text-align:center;padding:40px;color:var(--text-muted)}
+.error-state .error-icon{font-size:48px;margin-bottom:12px;opacity:0.5}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎯 Opportunity Radar API</h1>
-            <p class="subtitle">Google News for Opportunities - Find your next opportunity</p>
-            
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-value" id="total-opps">0</div>
-                    <div class="stat-label">Total Opportunities</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="total-jobs">0</div>
-                    <div class="stat-label">Jobs</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="total-hackathons">0</div>
-                    <div class="stat-label">Hackathons</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="total-grants">0</div>
-                    <div class="stat-label">Grants</div>
-                </div>
-            </div>
-            
-            <div class="last-update">
-                Last updated: <span id="last-update">Loading...</span>
-            </div>
-        </header>
-        
-        <div class="sections">
-            <section class="section">
-                <h2>🆕 Latest Opportunities</h2>
-                <div id="latest-opportunities" class="loading">Loading opportunities...</div>
-            </section>
-            
-            <section class="section">
-                <h2>🔥 Trending Opportunities</h2>
-                <div id="trending-opportunities" class="loading">Loading trending opportunities...</div>
-                
-                <div class="deadline-section">
-                    <h3>⏰ Upcoming Deadlines</h3>
-                    <div id="deadlines" class="loading">Loading deadlines...</div>
-                </div>
-            </section>
-        </div>
-        
-        <section class="section">
-            <h2>📡 API Endpoints</h2>
-            <ul class="api-endpoints">
-                <li class="api-endpoint">
-                    <strong>/api/opportunities.json</strong>
-                    <div class="endpoint-url">GET /api/opportunities.json</div>
-                    <div class="endpoint-description">All opportunities sorted by freshness (newest first)</div>
-                </li>
-                <li class="api-endpoint">
-                    <strong>/api/jobs.json</strong>
-                    <div class="endpoint-url">GET /api/jobs.json</div>
-                    <div class="endpoint-description">Job opportunities only</div>
-                </li>
-                <li class="api-endpoint">
-                    <strong>/api/hackathons.json</strong>
-                    <div class="endpoint-url">GET /api/hackathons.json</div>
-                    <div class="endpoint-description">Hackathon opportunities only</div>
-                </li>
-                <li class="api-endpoint">
-                    <strong>/api/grants.json</strong>
-                    <div class="endpoint-url">GET /api/grants.json</div>
-                    <div class="endpoint-description">Grant opportunities only</div>
-                </li>
-                <li class="api-endpoint">
-                    <strong>/api/trending.json</strong>
-                    <div class="endpoint-url">GET /api/trending.json</div>
-                    <div class="endpoint-description">Trending opportunities (top 50)</div>
-                </li>
-                <li class="api-endpoint">
-                    <strong>/api/deadlines.json</strong>
-                    <div class="endpoint-url">GET /api/deadlines.json</div>
-                    <div class="endpoint-description">Opportunities sorted by nearest deadline</div>
-                </li>
-                <li class="api-endpoint">
-                    <strong>/api/search-index.json</strong>
-                    <div class="endpoint-url">GET /api/search-index.json</div>
-                    <div class="endpoint-description">Search index optimized for frontend search</div>
-                </li>
-            </ul>
-        </section>
-        
-        <footer>
-            <p>Built with ❤️ for the open-source community</p>
-            <p>Opportunity Radar API - Making opportunities discoverable</p>
-            <p><a href="https://github.com/opportunity-radar/opportunity-radar-api" style="color: white;">GitHub Repository</a></p>
-        </footer>
+<div class="bg-gradient"></div>
+<canvas id="particles"></canvas>
+
+<div class="container">
+  <nav class="navbar">
+    <a class="nav-brand" href="#">
+      <div class="brand-icon">R</div>
+      <span class="brand-text">Opportunity Radar</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-btn" href="#opportunities">Opportunities</a>
+      <a class="nav-btn" href="#api">API</a>
+      <a class="nav-btn primary" href="https://github.com/SuhruthY/Opportunity-Radar-API" target="_blank">GitHub</a>
     </div>
-    
-    <script>
-        // Fetch data from API endpoints
-        async function fetchJSON(url) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return await response.json();
-            } catch (error) {
-                console.error(`Error fetching ${url}:`, error);
-                return null;
-            }
-        }
-        
-        // Update statistics
-        async function updateStats() {
-            const opportunities = await fetchJSON('api/opportunities.json');
-            if (opportunities) {
-                document.getElementById('total-opps').textContent = opportunities.length;
-                
-                const jobs = opportunities.filter(opp => opp.type === 'jobs');
-                document.getElementById('total-jobs').textContent = jobs.length;
-                
-                const hackathons = opportunities.filter(opp => opp.type === 'hackathons');
-                document.getElementById('total-hackathons').textContent = hackathons.length;
-                
-                const grants = opportunities.filter(opp => opp.type === 'grants');
-                document.getElementById('total-grants').textContent = grants.length;
-            }
-        }
-        
-        // Update last update time
-        async function updateLastUpdate() {
-            const opportunities = await fetchJSON('api/opportunities.json');
-            if (opportunities && opportunities.length > 0) {
-                const latest = opportunities[0];
-                document.getElementById('last-update').textContent = latest.date_discovered;
-            }
-        }
-        
-        // Render opportunities list
-        function renderOpportunities(containerId, opportunities, limit = 10) {
-            const container = document.getElementById(containerId);
-            if (!opportunities || opportunities.length === 0) {
-                container.innerHTML = '<p>No opportunities found.</p>';
-                return;
-            }
-            
-            const html = opportunities.slice(0, limit).map(opp => {
-                const deadlineClass = opp.deadline ? 'opportunity-deadline' : '';
-                const deadlineText = opp.deadline ? `Deadline: ${opp.deadline}` : 'No deadline';
-                
-                return `
-                    <li class="opportunity-item">
-                        <div class="opportunity-title">
-                            <a href="${opp.url}" target="_blank" style="text-decoration: none; color: inherit;">${opp.title}</a>
-                        </div>
-                        <div class="opportunity-meta">
-                            <span class="opportunity-org">📍 ${opp.organization}</span>
-                            <span class="opportunity-location">📍 ${opp.location}</span>
-                            <span class="${deadlineClass}">${deadlineText}</span>
-                            <span>⭐ Score: ${opp.score}</span>
-                        </div>
-                        <div class="opportunity-tags">
-                            ${opp.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                        <a href="${opp.url}" target="_blank" class="opportunity-link">View Opportunity →</a>
-                    </li>
-                `;
-            }).join('');
-            
-            container.innerHTML = `<ul class="opportunity-list">${html}</ul>`;
-        }
-        
-        // Render trending opportunities
-        function renderTrending(containerId, opportunities, limit = 5) {
-            const container = document.getElementById(containerId);
-            if (!opportunities || opportunities.length === 0) {
-                container.innerHTML = '<p>No trending opportunities found.</p>';
-                return;
-            }
-            
-            const html = opportunities.slice(0, limit).map(opp => {
-                return `
-                    <li class="opportunity-item">
-                        <div class="opportunity-title">
-                            <a href="${opp.url}" target="_blank" style="text-decoration: none; color: inherit;">${opp.title}</a>
-                        </div>
-                        <div class="opportunity-meta">
-                            <span class="opportunity-org">📍 ${opp.organization}</span>
-                            <span>⭐ Score: ${opp.score}</span>
-                        </div>
-                        <div class="opportunity-tags">
-                            ${opp.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                        <a href="${opp.url}" target="_blank" class="opportunity-link">View Opportunity →</a>
-                    </li>
-                `;
-            }).join('');
-            
-            container.innerHTML = `<ul class="opportunity-list">${html}</ul>`;
-        }
-        
-        // Render deadlines
-        function renderDeadlines(containerId, deadlines, limit = 5) {
-            const container = document.getElementById(containerId);
-            if (!deadlines || deadlines.length === 0) {
-                container.innerHTML = '<p>No upcoming deadlines found.</p>';
-                return;
-            }
-            
-            const html = deadlines.slice(0, limit).map(deadline => {
-                const daysLeftClass = deadline.days_left <= 7 ? 'deadline-countdown' : '';
-                return `
-                    <div class="deadline-item">
-                        <div class="opportunity-title">
-                            <a href="${deadline.url}" target="_blank" style="text-decoration: none; color: inherit;">${deadline.title}</a>
-                        </div>
-                        <div class="opportunity-meta">
-                            <span class="opportunity-org">📍 ${deadline.organization}</span>
-                            <span class="${daysLeftClass}">⏰ ${deadline.days_left} days left</span>
-                            <span>📅 ${deadline.deadline}</span>
-                        </div>
-                        <a href="${deadline.url}" target="_blank" class="opportunity-link">View Opportunity →</a>
-                    </div>
-                `;
-            }).join('');
-            
-            container.innerHTML = html;
-        }
-        
-        // Main function to load all data
-        async function loadData() {
-            try {
-                // Fetch all data
-                const [opportunities, trending, deadlines] = await Promise.all([
-                    fetchJSON('api/opportunities.json'),
-                    fetchJSON('api/trending.json'),
-                    fetchJSON('api/deadlines.json')
-                ]);
-                
-                // Update stats
-                updateStats();
-                updateLastUpdate();
-                
-                // Render data
-                renderOpportunities('latest-opportunities', opportunities);
-                renderTrending('trending-opportunities', trending);
-                renderDeadlines('deadlines', deadlines);
-                
-            } catch (error) {
-                console.error('Error loading data:', error);
-                document.getElementById('latest-opportunities').innerHTML = 
-                    '<p>Error loading opportunities. Please try again later.</p>';
-            }
-        }
-        
-        // Load data on page load
-        document.addEventListener('DOMContentLoaded', loadData);
-        
-        // Refresh data every 5 minutes
-        setInterval(loadData, 300000);
-    </script>
+  </nav>
+
+  <section class="hero fade-in">
+    <div class="hero-badge">Live &middot; Updated every 15 minutes</div>
+    <h1>Never Miss an<br>Opportunity</h1>
+    <p>Discover jobs, hackathons, grants, scholarships and more from across the internet — all in one place, updated automatically.</p>
+    <div class="hero-actions">
+      <a class="hero-btn primary ripple" href="#opportunities">Explore Opportunities</a>
+      <a class="hero-btn secondary" href="#api">API Docs</a>
+    </div>
+  </section>
+
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-card"><div class="stat-icon">&#x1F50D;</div><div class="stat-value" id="total-opps">0</div><div class="stat-label">Total Opportunities</div></div>
+    <div class="stat-card"><div class="stat-icon">&#x1F4BC;</div><div class="stat-value" id="total-jobs">0</div><div class="stat-label">Jobs</div></div>
+    <div class="stat-card"><div class="stat-icon">&#x1F3CB;</div><div class="stat-value" id="total-hackathons">0</div><div class="stat-label">Hackathons</div></div>
+    <div class="stat-card"><div class="stat-icon">&#x1F4B0;</div><div class="stat-value" id="total-grants">0</div><div class="stat-label">Grants</div></div>
+    <div class="stat-card"><div class="stat-icon">&#x1F680;</div><div class="stat-value" id="total-all">0</div><div class="stat-label">All Types</div></div>
+  </div>
+
+  <div class="update-bar"><span class="update-dot"></span> Last updated: <span id="last-update">Loading...</span> &middot; <span id="refresh-count">0</span> opportunities live</div>
+
+  <div class="sections" id="opportunities">
+    <section class="section-card">
+      <h2><span>&#x1F4E1;</span> Latest Opportunities <span class="count" id="opp-count">0</span></h2>
+      <div id="latest-opportunities">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </section>
+
+    <div>
+      <section class="section-card" style="margin-bottom:20px">
+        <h2><span>&#x1F525;</span> Trending Now</h2>
+        <div id="trending-opportunities">
+          <div class="skeleton" style="height:60px"></div>
+          <div class="skeleton" style="height:60px"></div>
+          <div class="skeleton" style="height:60px"></div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <h2><span>&#x23F0;</span> Upcoming Deadlines</h2>
+        <div id="deadlines">
+          <div class="skeleton" style="height:60px"></div>
+          <div class="skeleton" style="height:60px"></div>
+          <div class="skeleton" style="height:60px"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="section-card" id="api" style="margin-top:24px">
+    <h2><span>&#x1F4E1;</span> API Endpoints <span class="count">Free &amp; Public</span></h2>
+    <div class="api-grid">
+      <div class="api-card"><div class="api-method">GET</div><div class="api-endpoint">/api/opportunities.json</div><div class="api-desc">All opportunities sorted by freshness</div></div>
+      <div class="api-card"><div class="api-method">GET</div><div class="api-endpoint">/api/jobs.json</div><div class="api-desc">Job opportunities</div></div>
+      <div class="api-card"><div class="api-method">GET</div><div class="api-endpoint">/api/hackathons.json</div><div class="api-desc">Hackathon opportunities</div></div>
+      <div class="api-card"><div class="api-method">GET</div><div class="api-endpoint">/api/grants.json</div><div class="api-desc">Grant opportunities</div></div>
+      <div class="api-card"><div class="api-method">GET</div><div class="api-endpoint">/api/trending.json</div><div class="api-desc">Trending opportunities</div></div>
+      <div class="api-card"><div class="api-method">GET</div><div class="api-endpoint">/api/deadlines.json</div><div class="api-desc">Upcoming deadlines</div></div>
+      <div class="api-card"><div class="api-method">GET</div><div class="api-endpoint">/api/search-index.json</div><div class="api-desc">Search optimized index</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://github.com/SuhruthY/Opportunity-Radar-API">GitHub</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="#api">API</a>
+    </div>
+    <p>Opportunity Radar &middot; Open source &middot; MIT License</p>
+  </footer>
+</div>
+
+<script>
+// ---- Sound Engine (Web Audio API) ----
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+
+function initAudio() {
+  if (!audioCtx) audioCtx = new AudioCtx();
+}
+
+function playTone(freq, duration, type, vol) {
+  try {
+    initAudio();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(vol || 0.06, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  } catch(e) {}
+}
+
+function hoverSound() { playTone(800, 0.08, 'sine', 0.03); }
+function clickSound() { playTone(1200, 0.12, 'sine', 0.05); }
+function successSound() { playTone(523, 0.1, 'sine', 0.04); setTimeout(()=>playTone(659, 0.1, 'sine', 0.04), 100); setTimeout(()=>playTone(784, 0.15, 'sine', 0.04), 200); }
+
+// ---- Particle Background ----
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouseX = 0, mouseY = 0;
+
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2.5 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.speedY = (Math.random() - 0.5) * 0.4;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.hue = Math.random() * 60 + 240; // blue-purple range
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    const dx = mouseX - this.x;
+    const dy = mouseY - this.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 150) {
+      this.x -= dx * 0.005;
+      this.y -= dy * 0.005;
+    }
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue}, 70%, 65%, ${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i+1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(108, 92, 231, ${0.08 * (1 - dist/120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawConnections();
+  requestAnimationFrame(animateParticles);
+}
+
+document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+animateParticles();
+
+// ---- Animated Counter ----
+function animateCounter(el, target, duration) {
+  const start = parseInt(el.textContent) || 0;
+  const startTime = performance.now();
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(start + (target - start) * eased);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ---- Rendering ----
+async function fetchJSON(url) {
+  try {
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
+function getTypeLabel(type) {
+  const map = { jobs:'Jobs', hackathons:'Hackathons', grants:'Grants', competitions:'Competitions', freelance:'Freelance', scholarships:'Scholarships', accelerators:'Accelerators', fellowships:'Fellowships', bounties:'Bounties', research_funding:'Research' };
+  return map[type] || type;
+}
+
+function getTypeClass(type) {
+  const valid = ['jobs','hackathons','grants','competitions','freelance','scholarships','accelerators'];
+  return valid.includes(type) ? type : 'grants';
+}
+
+function renderOpportunities(opps, limit) {
+  const container = document.getElementById('latest-opportunities');
+  if (!opps || !opps.length) { container.innerHTML = '<div class="error-state"><div class="error-icon">&#x1F50D;</div><p>No opportunities found</p></div>'; return; }
+  document.getElementById('opp-count').textContent = opps.length;
+  container.innerHTML = opps.slice(0, limit||8).map(o => `
+    <div class="opp-card" onclick="window.open('${o.url}','_blank')">
+      <span class="opp-type ${getTypeClass(o.type)}">${getTypeLabel(o.type)}</span>
+      <span class="opp-score">${o.score}</span>
+      <div class="opp-title">${o.title}</div>
+      <div class="opp-org">${o.organization}</div>
+      <div class="opp-meta">
+        ${o.location ? `<span>&#x1F4CD; ${o.location}</span>` : ''}
+        ${o.reward ? `<span>&#x1F4B0; ${o.reward}</span>` : ''}
+        ${o.deadline ? `<span class="opp-deadline">&#x23F0; ${o.deadline}</span>` : ''}
+      </div>
+      <div class="opp-tags">${o.tags.map(t => `<span class="opp-tag">${t}</span>`).join('')}</div>
+      <span class="opp-link">View Opportunity &#8594;</span>
+    </div>
+  `).join('');
+}
+
+function renderTrending(opps) {
+  const container = document.getElementById('trending-opportunities');
+  if (!opps || !opps.length) { container.innerHTML = '<div class="error-state"><p>No trending data</p></div>'; return; }
+  container.innerHTML = opps.slice(0,5).map((o,i) => `
+    <div class="trend-card" onclick="window.open('${o.url}','_blank')">
+      <div class="trend-rank">#${i+1}</div>
+      <div class="trend-body">
+        <div class="trend-title">${o.title}</div>
+        <div class="trend-org">${o.organization}</div>
+      </div>
+      <div class="trend-score">${o.score}</div>
+    </div>
+  `).join('');
+}
+
+function renderDeadlines(deadlines) {
+  const container = document.getElementById('deadlines');
+  if (!deadlines || !deadlines.length) { container.innerHTML = '<div class="error-state"><p>No upcoming deadlines</p></div>'; return; }
+  container.innerHTML = deadlines.slice(0,5).map(d => {
+    let countClass = 'deadline-count';
+    if (d.days_left > 14) countClass += ' months';
+    else if (d.days_left > 7) countClass += ' weeks';
+    else countClass += ''; // urgent by default
+    return `
+      <div class="deadline-card" onclick="window.open('${d.url}','_blank')">
+        <div class="deadline-title">${d.title}</div>
+        <div class="deadline-meta">
+          <span>${d.organization}</span>
+          <span class="${countClass}">${d.days_left}d</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">${d.deadline}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function loadData() {
+  const [opps, trending, deadlines] = await Promise.all([
+    fetchJSON('api/opportunities.json'),
+    fetchJSON('api/trending.json'),
+    fetchJSON('api/deadlines.json')
+  ]);
+
+  if (opps) {
+    document.getElementById('total-opps').textContent = opps.length;
+    const jobs = opps.filter(o => o.type === 'jobs').length;
+    const hackathons = opps.filter(o => o.type === 'hackathons').length;
+    const grants = opps.filter(o => o.type === 'grants').length;
+    animateCounter(document.getElementById('total-opps'), opps.length, 800);
+    animateCounter(document.getElementById('total-jobs'), jobs, 800);
+    animateCounter(document.getElementById('total-hackathons'), hackathons, 800);
+    animateCounter(document.getElementById('total-grants'), grants, 800);
+    animateCounter(document.getElementById('total-all'), opps.length, 800);
+    document.getElementById('refresh-count').textContent = opps.length;
+
+    if (opps.length > 0) {
+      document.getElementById('last-update').textContent = opps[0].date_discovered;
+    }
+  }
+
+  renderOpportunities(opps, 6);
+  renderTrending(trending);
+  renderDeadlines(deadlines);
+  successSound();
+}
+
+loadData();
+setInterval(loadData, 300000);
+
+// ---- Hover/Click Sound Effects ----
+document.addEventListener('mouseover', e => {
+  const card = e.target.closest('.opp-card, .trend-card, .deadline-card, .stat-card, .api-card');
+  if (card) hoverSound();
+});
+document.addEventListener('click', e => {
+  const card = e.target.closest('.opp-card, .trend-card, .deadline-card, .nav-btn, .hero-btn');
+  if (card) clickSound();
+});
+
+// ---- Intersection Observer for scroll animations ----
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.section-card, .stat-card, .api-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+  observer.observe(el);
+});
+</script>
 </body>
 </html>
