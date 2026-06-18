@@ -86,7 +86,7 @@ class Opportunity(BaseModel):
 class CrawlerConfig(BaseModel):
     """Configuration for crawlers"""
     
-    name: str = Field(..., description="Name of the crawler")
+    name: str = Field(..., min_length=1, description="Name of the crawler")
     type: str = Field(..., description="Type of opportunity")
     base_url: str = Field(..., description="Base URL for the crawler")
     enabled: bool = Field(default=True, description="Whether the crawler is enabled")
