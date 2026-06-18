@@ -27,7 +27,7 @@ class KaggleCrawler(Crawler):
             "country": "Global",
             "reward": "$5,000 prize + $1,000 runner-up",
             "deadline": "2026-07-10",
-            "url": "https://kaggle.com/competitions/titanic",
+            "url": "https://www.kaggle.com/competitions",
             "tags": ["machine-learning", "data-science", "kaggle", "competition"],
             "source": "kaggle",
             "date_discovered": "2026-06-18",

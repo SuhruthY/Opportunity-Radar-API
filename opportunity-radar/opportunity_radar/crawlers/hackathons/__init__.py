@@ -17,7 +17,7 @@ class DevpostCrawler(Crawler):
             "country": "Global",
             "reward": "$10,000 prize + mentorship",
             "deadline": "2026-06-30",
-            "url": "https://devpost.com/hackathons/ai-healthcare-2026",
+            "url": "https://devpost.com/hackathons",
             "tags": ["ai", "healthcare", "machine-learning", "hackathon"],
             "source": "devpost",
             "date_discovered": "2026-06-18",

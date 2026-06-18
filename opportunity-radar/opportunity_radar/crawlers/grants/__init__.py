@@ -27,7 +27,7 @@ class GrantsCrawler:
             "country": "USA",
             "reward": "$500,000 - $1,000,000",
             "deadline": "2026-08-15",
-            "url": "https://nsf.gov/grant/research/2026",
+            "url": "https://www.nsf.gov/funding/",
             "tags": ["research", "grant", "funding", "science"],
             "source": "nsf",
             "date_discovered": "2026-06-18",

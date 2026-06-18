@@ -27,7 +27,7 @@ class FreelanceCrawler:
             "country": "Global",
             "reward": "$3,000 - $5,000",
             "deadline": "2026-06-25",
-            "url": "https://freelance.com/project/react-native-app",
+            "url": "https://www.upwork.com/freelance-jobs/",
             "tags": ["react-native", "mobile", "javascript", "freelance"],
             "source": "freelance-platform",
             "date_discovered": "2026-06-18",

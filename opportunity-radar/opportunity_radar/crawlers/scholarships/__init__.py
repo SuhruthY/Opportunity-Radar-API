@@ -27,7 +27,7 @@ class ScholarshipsCrawler:
             "country": "USA",
             "reward": "Full tuition + $5,000 stipend",
             "deadline": "2026-07-01",
-            "url": "https://university.edu/scholarships/cs-2026",
+            "url": "https://www.scholarships.com/",
             "tags": ["scholarship", "tuition", "computer-science", "merit"],
             "source": "university-portal",
             "date_discovered": "2026-06-18",
