@@ -1,0 +1,24 @@
+[
+  {
+    "id": "grant-001",
+    "type": "grants",
+    "title": "National Science Foundation Research Grant",
+    "organization": "National Science Foundation",
+    "description": "Support innovative research in computer science...",
+    "location": "USA",
+    "country": "USA",
+    "reward": "$500,000 - $1,000,000",
+    "deadline": "2026-08-15",
+    "url": "https://nsf.gov/grant/research/2026",
+    "tags": [
+      "research",
+      "grant",
+      "funding",
+      "science"
+    ],
+    "source": "nsf",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 90
+  }
+]

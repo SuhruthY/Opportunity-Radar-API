@@ -1,0 +1,241 @@
+[
+  {
+    "id": "devpost-001",
+    "type": "hackathons",
+    "title": "AI-Powered Healthcare Hackathon",
+    "organization": "Devpost",
+    "description": "Build innovative healthcare solutions using AI.",
+    "location": "Online",
+    "country": "Global",
+    "reward": "$10,000 prize + mentorship",
+    "deadline": "2026-06-30",
+    "url": "https://devpost.com/hackathons/ai-healthcare-2026",
+    "tags": [
+      "ai",
+      "healthcare",
+      "machine-learning",
+      "hackathon"
+    ],
+    "source": "devpost",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 95
+  },
+  {
+    "id": "yc-001",
+    "type": "accelerators",
+    "title": "Y Combinator Summer 2026",
+    "organization": "Y Combinator",
+    "description": "Join the most prestigious startup accelerator program.",
+    "location": "Remote",
+    "country": "Global",
+    "reward": "$120,000 seed + mentorship",
+    "deadline": "2026-09-15",
+    "url": "https://ycombinator.com/apply/2026",
+    "tags": [
+      "accelerator",
+      "startup",
+      "yc",
+      "seed-funding"
+    ],
+    "source": "ycombinator",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 95
+  },
+  {
+    "id": "lever-001",
+    "type": "jobs",
+    "title": "Product Manager",
+    "organization": "InnovateTech",
+    "description": "We are looking for a product manager...",
+    "location": "New York, NY",
+    "country": "USA",
+    "reward": "$110,000 - $150,000",
+    "deadline": "2026-07-20",
+    "url": "https://lever.co/innovatetech/job/456",
+    "tags": [
+      "product",
+      "agile",
+      "scrum"
+    ],
+    "source": "lever",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 90
+  },
+  {
+    "id": "grant-001",
+    "type": "grants",
+    "title": "National Science Foundation Research Grant",
+    "organization": "National Science Foundation",
+    "description": "Support innovative research in computer science...",
+    "location": "USA",
+    "country": "USA",
+    "reward": "$500,000 - $1,000,000",
+    "deadline": "2026-08-15",
+    "url": "https://nsf.gov/grant/research/2026",
+    "tags": [
+      "research",
+      "grant",
+      "funding",
+      "science"
+    ],
+    "source": "nsf",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 90
+  },
+  {
+    "id": "techstars-001",
+    "type": "accelerators",
+    "title": "Techstars Accelerator Program",
+    "organization": "Techstars",
+    "description": "Mentorship-driven accelerator program for startups.",
+    "location": "Various cities",
+    "country": "Global",
+    "reward": "$20,000 + mentorship",
+    "deadline": "2026-08-01",
+    "url": "https://techstars.com/apply",
+    "tags": [
+      "accelerator",
+      "startup",
+      "techstars",
+      "mentorship"
+    ],
+    "source": "techstars",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 90
+  },
+  {
+    "id": "greenhouse-001",
+    "type": "jobs",
+    "title": "Senior Software Engineer",
+    "organization": "TechCorp",
+    "description": "We are looking for a senior software engineer...",
+    "location": "San Francisco, CA",
+    "country": "USA",
+    "reward": "$120,000 - $180,000",
+    "deadline": "2026-07-15",
+    "url": "https://greenhouse.io/techcorp/job/123",
+    "tags": [
+      "python",
+      "javascript",
+      "aws"
+    ],
+    "source": "greenhouse",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 85
+  },
+  {
+    "id": "kaggle-001",
+    "type": "competitions",
+    "title": "Titanic Survival Prediction Challenge",
+    "organization": "Kaggle",
+    "description": "Predict passenger survival on the Titanic...",
+    "location": "Online",
+    "country": "Global",
+    "reward": "$5,000 prize + $1,000 runner-up",
+    "deadline": "2026-07-10",
+    "url": "https://kaggle.com/competitions/titanic",
+    "tags": [
+      "machine-learning",
+      "data-science",
+      "kaggle",
+      "competition"
+    ],
+    "source": "kaggle",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 85
+  },
+  {
+    "id": "scholarship-001",
+    "type": "scholarships",
+    "title": "Merit Scholarship for Computer Science",
+    "organization": "University of Technology",
+    "description": "Full tuition scholarship for top CS students...",
+    "location": "Boston, MA",
+    "country": "USA",
+    "reward": "Full tuition + $5,000 stipend",
+    "deadline": "2026-07-01",
+    "url": "https://university.edu/scholarships/cs-2026",
+    "tags": [
+      "scholarship",
+      "tuition",
+      "computer-science",
+      "merit"
+    ],
+    "source": "university-portal",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 85
+  },
+  {
+    "id": "ashby-001",
+    "type": "jobs",
+    "title": "Data Scientist",
+    "organization": "DataDriven",
+    "description": "We are looking for a data scientist...",
+    "location": "Remote",
+    "country": "Global",
+    "reward": "$100,000 - $140,000",
+    "deadline": "2026-07-25",
+    "url": "https://ashby.co/datadriven/job/789",
+    "tags": [
+      "python",
+      "machine-learning",
+      "sql"
+    ],
+    "source": "ashby",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 80
+  },
+  {
+    "id": "workday-001",
+    "type": "jobs",
+    "title": "UX Designer",
+    "organization": "DesignStudio",
+    "description": "We are looking for a UX designer...",
+    "location": "Seattle, WA",
+    "country": "USA",
+    "reward": "$90,000 - $120,000",
+    "deadline": "2026-08-01",
+    "url": "https://workday.com/designstudio/job/abc",
+    "tags": [
+      "ux",
+      "design",
+      "figma",
+      "sketch"
+    ],
+    "source": "workday",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 75
+  },
+  {
+    "id": "freelance-001",
+    "type": "freelance",
+    "title": "Build a React Native Mobile App",
+    "organization": "FreelanceClient",
+    "description": "Looking for a React Native developer to build...",
+    "location": "Remote",
+    "country": "Global",
+    "reward": "$3,000 - $5,000",
+    "deadline": "2026-06-25",
+    "url": "https://freelance.com/project/react-native-app",
+    "tags": [
+      "react-native",
+      "mobile",
+      "javascript",
+      "freelance"
+    ],
+    "source": "freelance-platform",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 70
+  }
+]

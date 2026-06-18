@@ -1,0 +1,24 @@
+[
+  {
+    "id": "freelance-001",
+    "type": "freelance",
+    "title": "Build a React Native Mobile App",
+    "organization": "FreelanceClient",
+    "description": "Looking for a React Native developer to build...",
+    "location": "Remote",
+    "country": "Global",
+    "reward": "$3,000 - $5,000",
+    "deadline": "2026-06-25",
+    "url": "https://freelance.com/project/react-native-app",
+    "tags": [
+      "react-native",
+      "mobile",
+      "javascript",
+      "freelance"
+    ],
+    "source": "freelance-platform",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 70
+  }
+]

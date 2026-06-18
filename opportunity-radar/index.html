@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Radar API - Google News for Opportunities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .last-update {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        
+        .sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 968px) {
+            .sections {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .opportunity-list {
+            list-style: none;
+        }
+        
+        .opportunity-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+        
+        .opportunity-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .opportunity-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .opportunity-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .opportunity-org {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .opportunity-deadline {
+            color: #dc3545;
+            font-weight: 600;
+        }
+        
+        .opportunity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+        
+        .opportunity-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .opportunity-link:hover {
+            text-decoration: underline;
+        }
+        
+        .trending-section {
+            margin-top: 30px;
+        }
+        
+        .deadline-section {
+            margin-top: 30px;
+        }
+        
+        .deadline-item {
+            background: #fff3cd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .deadline-countdown {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .api-endpoints {
+            list-style: none;
+        }
+        
+        .api-endpoint {
+            background: #e8f4fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .endpoint-url {
+            font-family: 'Courier New', monospace;
+            color: #495057;
+            margin: 10px 0;
+        }
+        
+        .endpoint-description {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+        }
+        
+        .refresh-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #155724;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Opportunity Radar API</h1>
+            <p class="subtitle">Google News for Opportunities - Find your next opportunity</p>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-opps">0</div>
+                    <div class="stat-label">Total Opportunities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-jobs">0</div>
+                    <div class="stat-label">Jobs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-hackathons">0</div>
+                    <div class="stat-label">Hackathons</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-grants">0</div>
+                    <div class="stat-label">Grants</div>
+                </div>
+            </div>
+            
+            <div class="last-update">
+                Last updated: <span id="last-update">Loading...</span>
+            </div>
+        </header>
+        
+        <div class="sections">
+            <section class="section">
+                <h2>🆕 Latest Opportunities</h2>
+                <div id="latest-opportunities" class="loading">Loading opportunities...</div>
+            </section>
+            
+            <section class="section">
+                <h2>🔥 Trending Opportunities</h2>
+                <div id="trending-opportunities" class="loading">Loading trending opportunities...</div>
+                
+                <div class="deadline-section">
+                    <h3>⏰ Upcoming Deadlines</h3>
+                    <div id="deadlines" class="loading">Loading deadlines...</div>
+                </div>
+            </section>
+        </div>
+        
+        <section class="section">
+            <h2>📡 API Endpoints</h2>
+            <ul class="api-endpoints">
+                <li class="api-endpoint">
+                    <strong>/api/opportunities.json</strong>
+                    <div class="endpoint-url">GET /api/opportunities.json</div>
+                    <div class="endpoint-description">All opportunities sorted by freshness (newest first)</div>
+                </li>
+                <li class="api-endpoint">
+                    <strong>/api/jobs.json</strong>
+                    <div class="endpoint-url">GET /api/jobs.json</div>
+                    <div class="endpoint-description">Job opportunities only</div>
+                </li>
+                <li class="api-endpoint">
+                    <strong>/api/hackathons.json</strong>
+                    <div class="endpoint-url">GET /api/hackathons.json</div>
+                    <div class="endpoint-description">Hackathon opportunities only</div>
+                </li>
+                <li class="api-endpoint">
+                    <strong>/api/grants.json</strong>
+                    <div class="endpoint-url">GET /api/grants.json</div>
+                    <div class="endpoint-description">Grant opportunities only</div>
+                </li>
+                <li class="api-endpoint">
+                    <strong>/api/trending.json</strong>
+                    <div class="endpoint-url">GET /api/trending.json</div>
+                    <div class="endpoint-description">Trending opportunities (top 50)</div>
+                </li>
+                <li class="api-endpoint">
+                    <strong>/api/deadlines.json</strong>
+                    <div class="endpoint-url">GET /api/deadlines.json</div>
+                    <div class="endpoint-description">Opportunities sorted by nearest deadline</div>
+                </li>
+                <li class="api-endpoint">
+                    <strong>/api/search-index.json</strong>
+                    <div class="endpoint-url">GET /api/search-index.json</div>
+                    <div class="endpoint-description">Search index optimized for frontend search</div>
+                </li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>Built with ❤️ for the open-source community</p>
+            <p>Opportunity Radar API - Making opportunities discoverable</p>
+            <p><a href="https://github.com/opportunity-radar/opportunity-radar-api" style="color: white;">GitHub Repository</a></p>
+        </footer>
+    </div>
+    
+    <script>
+        // Fetch data from API endpoints
+        async function fetchJSON(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error(`Error fetching ${url}:`, error);
+                return null;
+            }
+        }
+        
+        // Update statistics
+        async function updateStats() {
+            const opportunities = await fetchJSON('/api/opportunities.json');
+            if (opportunities) {
+                document.getElementById('total-opps').textContent = opportunities.length;
+                
+                const jobs = opportunities.filter(opp => opp.type === 'jobs');
+                document.getElementById('total-jobs').textContent = jobs.length;
+                
+                const hackathons = opportunities.filter(opp => opp.type === 'hackathons');
+                document.getElementById('total-hackathons').textContent = hackathons.length;
+                
+                const grants = opportunities.filter(opp => opp.type === 'grants');
+                document.getElementById('total-grants').textContent = grants.length;
+            }
+        }
+        
+        // Update last update time
+        async function updateLastUpdate() {
+            const opportunities = await fetchJSON('/api/opportunities.json');
+            if (opportunities && opportunities.length > 0) {
+                const latest = opportunities[0];
+                document.getElementById('last-update').textContent = latest.date_discovered;
+            }
+        }
+        
+        // Render opportunities list
+        function renderOpportunities(containerId, opportunities, limit = 10) {
+            const container = document.getElementById(containerId);
+            if (!opportunities || opportunities.length === 0) {
+                container.innerHTML = '<p>No opportunities found.</p>';
+                return;
+            }
+            
+            const html = opportunities.slice(0, limit).map(opp => {
+                const deadlineClass = opp.deadline ? 'opportunity-deadline' : '';
+                const deadlineText = opp.deadline ? `Deadline: ${opp.deadline}` : 'No deadline';
+                
+                return `
+                    <li class="opportunity-item">
+                        <div class="opportunity-title">
+                            <a href="${opp.url}" target="_blank" style="text-decoration: none; color: inherit;">${opp.title}</a>
+                        </div>
+                        <div class="opportunity-meta">
+                            <span class="opportunity-org">📍 ${opp.organization}</span>
+                            <span class="opportunity-location">📍 ${opp.location}</span>
+                            <span class="${deadlineClass}">${deadlineText}</span>
+                            <span>⭐ Score: ${opp.score}</span>
+                        </div>
+                        <div class="opportunity-tags">
+                            ${opp.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <a href="${opp.url}" target="_blank" class="opportunity-link">View Opportunity →</a>
+                    </li>
+                `;
+            }).join('');
+            
+            container.innerHTML = `<ul class="opportunity-list">${html}</ul>`;
+        }
+        
+        // Render trending opportunities
+        function renderTrending(containerId, opportunities, limit = 5) {
+            const container = document.getElementById(containerId);
+            if (!opportunities || opportunities.length === 0) {
+                container.innerHTML = '<p>No trending opportunities found.</p>';
+                return;
+            }
+            
+            const html = opportunities.slice(0, limit).map(opp => {
+                return `
+                    <li class="opportunity-item">
+                        <div class="opportunity-title">
+                            <a href="${opp.url}" target="_blank" style="text-decoration: none; color: inherit;">${opp.title}</a>
+                        </div>
+                        <div class="opportunity-meta">
+                            <span class="opportunity-org">📍 ${opp.organization}</span>
+                            <span>⭐ Score: ${opp.score}</span>
+                        </div>
+                        <div class="opportunity-tags">
+                            ${opp.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <a href="${opp.url}" target="_blank" class="opportunity-link">View Opportunity →</a>
+                    </li>
+                `;
+            }).join('');
+            
+            container.innerHTML = `<ul class="opportunity-list">${html}</ul>`;
+        }
+        
+        // Render deadlines
+        function renderDeadlines(containerId, deadlines, limit = 5) {
+            const container = document.getElementById(containerId);
+            if (!deadlines || deadlines.length === 0) {
+                container.innerHTML = '<p>No upcoming deadlines found.</p>';
+                return;
+            }
+            
+            const html = deadlines.slice(0, limit).map(deadline => {
+                const daysLeftClass = deadline.days_left <= 7 ? 'deadline-countdown' : '';
+                return `
+                    <div class="deadline-item">
+                        <div class="opportunity-title">
+                            <a href="${deadline.url}" target="_blank" style="text-decoration: none; color: inherit;">${deadline.title}</a>
+                        </div>
+                        <div class="opportunity-meta">
+                            <span class="opportunity-org">📍 ${deadline.organization}</span>
+                            <span class="${daysLeftClass}">⏰ ${deadline.days_left} days left</span>
+                            <span>📅 ${deadline.deadline}</span>
+                        </div>
+                        <a href="${deadline.url}" target="_blank" class="opportunity-link">View Opportunity →</a>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
+        }
+        
+        // Main function to load all data
+        async function loadData() {
+            try {
+                // Fetch all data
+                const [opportunities, trending, deadlines] = await Promise.all([
+                    fetchJSON('/api/opportunities.json'),
+                    fetchJSON('/api/trending.json'),
+                    fetchJSON('/api/deadlines.json')
+                ]);
+                
+                // Update stats
+                updateStats();
+                updateLastUpdate();
+                
+                // Render data
+                renderOpportunities('latest-opportunities', opportunities);
+                renderTrending('trending-opportunities', trending);
+                renderDeadlines('deadlines', deadlines);
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('latest-opportunities').innerHTML = 
+                    '<p>Error loading opportunities. Please try again later.</p>';
+            }
+        }
+        
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', loadData);
+        
+        // Refresh data every 5 minutes
+        setInterval(loadData, 300000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# Python files
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+
+# Virtual environment
+venv/
+.env
+
+# Jupyter notebooks
+.ipynb_checkpoints
+
+# Temporary directories
+tmp/
+temp/
+
+# Package files
+*.egg-info/
+dist/
+build/

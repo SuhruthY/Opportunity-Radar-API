@@ -1,0 +1,153 @@
+[
+  {
+    "title": "AI-Powered Healthcare Hackathon",
+    "organization": "Devpost",
+    "tags": [
+      "ai",
+      "healthcare",
+      "machine-learning",
+      "hackathon"
+    ],
+    "type": "hackathons",
+    "url": "https://devpost.com/hackathons/ai-healthcare-2026",
+    "description": "Build innovative healthcare solutions using AI.",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Y Combinator Summer 2026",
+    "organization": "Y Combinator",
+    "tags": [
+      "accelerator",
+      "startup",
+      "yc",
+      "seed-funding"
+    ],
+    "type": "accelerators",
+    "url": "https://ycombinator.com/apply/2026",
+    "description": "Join the most prestigious startup accelerator program.",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Product Manager",
+    "organization": "InnovateTech",
+    "tags": [
+      "product",
+      "agile",
+      "scrum"
+    ],
+    "type": "jobs",
+    "url": "https://lever.co/innovatetech/job/456",
+    "description": "We are looking for a product manager...",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "National Science Foundation Research Grant",
+    "organization": "National Science Foundation",
+    "tags": [
+      "research",
+      "grant",
+      "funding",
+      "science"
+    ],
+    "type": "grants",
+    "url": "https://nsf.gov/grant/research/2026",
+    "description": "Support innovative research in computer science...",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Techstars Accelerator Program",
+    "organization": "Techstars",
+    "tags": [
+      "accelerator",
+      "startup",
+      "techstars",
+      "mentorship"
+    ],
+    "type": "accelerators",
+    "url": "https://techstars.com/apply",
+    "description": "Mentorship-driven accelerator program for startups.",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Senior Software Engineer",
+    "organization": "TechCorp",
+    "tags": [
+      "python",
+      "javascript",
+      "aws"
+    ],
+    "type": "jobs",
+    "url": "https://greenhouse.io/techcorp/job/123",
+    "description": "We are looking for a senior software engineer...",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Titanic Survival Prediction Challenge",
+    "organization": "Kaggle",
+    "tags": [
+      "machine-learning",
+      "data-science",
+      "kaggle",
+      "competition"
+    ],
+    "type": "competitions",
+    "url": "https://kaggle.com/competitions/titanic",
+    "description": "Predict passenger survival on the Titanic...",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Merit Scholarship for Computer Science",
+    "organization": "University of Technology",
+    "tags": [
+      "scholarship",
+      "tuition",
+      "computer-science",
+      "merit"
+    ],
+    "type": "scholarships",
+    "url": "https://university.edu/scholarships/cs-2026",
+    "description": "Full tuition scholarship for top CS students...",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Data Scientist",
+    "organization": "DataDriven",
+    "tags": [
+      "python",
+      "machine-learning",
+      "sql"
+    ],
+    "type": "jobs",
+    "url": "https://ashby.co/datadriven/job/789",
+    "description": "We are looking for a data scientist...",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "UX Designer",
+    "organization": "DesignStudio",
+    "tags": [
+      "ux",
+      "design",
+      "figma",
+      "sketch"
+    ],
+    "type": "jobs",
+    "url": "https://workday.com/designstudio/job/abc",
+    "description": "We are looking for a UX designer...",
+    "date_discovered": "2026-06-18"
+  },
+  {
+    "title": "Build a React Native Mobile App",
+    "organization": "FreelanceClient",
+    "tags": [
+      "react-native",
+      "mobile",
+      "javascript",
+      "freelance"
+    ],
+    "type": "freelance",
+    "url": "https://freelance.com/project/react-native-app",
+    "description": "Looking for a React Native developer to build...",
+    "date_discovered": "2026-06-18"
+  }
+]

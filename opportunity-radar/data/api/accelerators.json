@@ -1,0 +1,46 @@
+[
+  {
+    "id": "yc-001",
+    "type": "accelerators",
+    "title": "Y Combinator Summer 2026",
+    "organization": "Y Combinator",
+    "description": "Join the most prestigious startup accelerator program.",
+    "location": "Remote",
+    "country": "Global",
+    "reward": "$120,000 seed + mentorship",
+    "deadline": "2026-09-15",
+    "url": "https://ycombinator.com/apply/2026",
+    "tags": [
+      "accelerator",
+      "startup",
+      "yc",
+      "seed-funding"
+    ],
+    "source": "ycombinator",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 95
+  },
+  {
+    "id": "techstars-001",
+    "type": "accelerators",
+    "title": "Techstars Accelerator Program",
+    "organization": "Techstars",
+    "description": "Mentorship-driven accelerator program for startups.",
+    "location": "Various cities",
+    "country": "Global",
+    "reward": "$20,000 + mentorship",
+    "deadline": "2026-08-01",
+    "url": "https://techstars.com/apply",
+    "tags": [
+      "accelerator",
+      "startup",
+      "techstars",
+      "mentorship"
+    ],
+    "source": "techstars",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 90
+  }
+]

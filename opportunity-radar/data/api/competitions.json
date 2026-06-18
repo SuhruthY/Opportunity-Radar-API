@@ -1,0 +1,24 @@
+[
+  {
+    "id": "kaggle-001",
+    "type": "competitions",
+    "title": "Titanic Survival Prediction Challenge",
+    "organization": "Kaggle",
+    "description": "Predict passenger survival on the Titanic...",
+    "location": "Online",
+    "country": "Global",
+    "reward": "$5,000 prize + $1,000 runner-up",
+    "deadline": "2026-07-10",
+    "url": "https://kaggle.com/competitions/titanic",
+    "tags": [
+      "machine-learning",
+      "data-science",
+      "kaggle",
+      "competition"
+    ],
+    "source": "kaggle",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 85
+  }
+]

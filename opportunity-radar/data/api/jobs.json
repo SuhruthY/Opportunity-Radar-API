@@ -1,0 +1,87 @@
+[
+  {
+    "id": "lever-001",
+    "type": "jobs",
+    "title": "Product Manager",
+    "organization": "InnovateTech",
+    "description": "We are looking for a product manager...",
+    "location": "New York, NY",
+    "country": "USA",
+    "reward": "$110,000 - $150,000",
+    "deadline": "2026-07-20",
+    "url": "https://lever.co/innovatetech/job/456",
+    "tags": [
+      "product",
+      "agile",
+      "scrum"
+    ],
+    "source": "lever",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 90
+  },
+  {
+    "id": "greenhouse-001",
+    "type": "jobs",
+    "title": "Senior Software Engineer",
+    "organization": "TechCorp",
+    "description": "We are looking for a senior software engineer...",
+    "location": "San Francisco, CA",
+    "country": "USA",
+    "reward": "$120,000 - $180,000",
+    "deadline": "2026-07-15",
+    "url": "https://greenhouse.io/techcorp/job/123",
+    "tags": [
+      "python",
+      "javascript",
+      "aws"
+    ],
+    "source": "greenhouse",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 85
+  },
+  {
+    "id": "ashby-001",
+    "type": "jobs",
+    "title": "Data Scientist",
+    "organization": "DataDriven",
+    "description": "We are looking for a data scientist...",
+    "location": "Remote",
+    "country": "Global",
+    "reward": "$100,000 - $140,000",
+    "deadline": "2026-07-25",
+    "url": "https://ashby.co/datadriven/job/789",
+    "tags": [
+      "python",
+      "machine-learning",
+      "sql"
+    ],
+    "source": "ashby",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 80
+  },
+  {
+    "id": "workday-001",
+    "type": "jobs",
+    "title": "UX Designer",
+    "organization": "DesignStudio",
+    "description": "We are looking for a UX designer...",
+    "location": "Seattle, WA",
+    "country": "USA",
+    "reward": "$90,000 - $120,000",
+    "deadline": "2026-08-01",
+    "url": "https://workday.com/designstudio/job/abc",
+    "tags": [
+      "ux",
+      "design",
+      "figma",
+      "sketch"
+    ],
+    "source": "workday",
+    "date_discovered": "2026-06-18",
+    "last_updated": "2026-06-18",
+    "score": 75
+  }
+]

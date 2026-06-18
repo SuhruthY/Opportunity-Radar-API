@@ -1,0 +1,90 @@
+[
+  {
+    "title": "Build a React Native Mobile App",
+    "organization": "FreelanceClient",
+    "deadline": "2026-06-25",
+    "days_left": 6,
+    "url": "https://freelance.com/project/react-native-app",
+    "type": "freelance"
+  },
+  {
+    "title": "AI-Powered Healthcare Hackathon",
+    "organization": "Devpost",
+    "deadline": "2026-06-30",
+    "days_left": 11,
+    "url": "https://devpost.com/hackathons/ai-healthcare-2026",
+    "type": "hackathons"
+  },
+  {
+    "title": "Merit Scholarship for Computer Science",
+    "organization": "University of Technology",
+    "deadline": "2026-07-01",
+    "days_left": 12,
+    "url": "https://university.edu/scholarships/cs-2026",
+    "type": "scholarships"
+  },
+  {
+    "title": "Titanic Survival Prediction Challenge",
+    "organization": "Kaggle",
+    "deadline": "2026-07-10",
+    "days_left": 21,
+    "url": "https://kaggle.com/competitions/titanic",
+    "type": "competitions"
+  },
+  {
+    "title": "Senior Software Engineer",
+    "organization": "TechCorp",
+    "deadline": "2026-07-15",
+    "days_left": 26,
+    "url": "https://greenhouse.io/techcorp/job/123",
+    "type": "jobs"
+  },
+  {
+    "title": "Product Manager",
+    "organization": "InnovateTech",
+    "deadline": "2026-07-20",
+    "days_left": 31,
+    "url": "https://lever.co/innovatetech/job/456",
+    "type": "jobs"
+  },
+  {
+    "title": "Data Scientist",
+    "organization": "DataDriven",
+    "deadline": "2026-07-25",
+    "days_left": 36,
+    "url": "https://ashby.co/datadriven/job/789",
+    "type": "jobs"
+  },
+  {
+    "title": "Techstars Accelerator Program",
+    "organization": "Techstars",
+    "deadline": "2026-08-01",
+    "days_left": 43,
+    "url": "https://techstars.com/apply",
+    "type": "accelerators"
+  },
+  {
+    "title": "UX Designer",
+    "organization": "DesignStudio",
+    "deadline": "2026-08-01",
+    "days_left": 43,
+    "url": "https://workday.com/designstudio/job/abc",
+    "type": "jobs"
+  },
+  {
+    "title": "National Science Foundation Research Grant",
+    "organization": "National Science Foundation",
+    "deadline": "2026-08-15",
+    "days_left": 57,
+    "url": "https://nsf.gov/grant/research/2026",
+    "type": "grants"
+  },
+  {
+    "title": "Y Combinator Summer 2026",
+    "organization": "Y Combinator",
+    "deadline": "2026-09-15",
+    "days_left": 88,
+    "url": "https://ycombinator.com/apply/2026",
+    "type": "accelerators"
+  }
+]
